@@ -1,44 +1,20 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import './App.css';
-import Header from './componence/Header/Header';
-import Shop from './componence/Shop/Shop';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Review from './componence/review/Review';
-import Inventory from './componence/Inventory/Inventory';
-import NotFound from './componence/NotFound/NotFound';
-import ProductDetail from './componence/ProductDetail/ProductDetail';
+import Header from './components/Header/Header';
+import Home from './components/Home/Home';
+import Category from './components/Category/Category';
+
+export const CategoryContext = createContext();
 
 function App() {
+  const [catagories,setCategory]=useState('lunch')
   return (
-    <div>
-     <Header></Header>
-      <Router>
-        <Switch>
-          <Route path="/shop">
-            <Shop></Shop>
-          </Route>
-          <Route path="/review">
-            <Review></Review>
-          </Route>
-          <Route path="/inventory">
-            <Inventory></Inventory>
-          </Route>
-          <Route exact path="/">
-            <Shop></Shop>
-          </Route>
-          <Route path="/product/:productKey">
-            <ProductDetail></ProductDetail>
-          </Route>
-          <Route path="*">
-            <NotFound></NotFound>
-          </Route>
-        </Switch>
-      </Router>
+    <div className="App">
+      <CategoryContext.Provider value={[catagories,setCategory]}>
+      <Header></Header>
+      <Home></Home>
+      <Category></Category>
+      </CategoryContext.Provider>
     </div>
   );
 }
